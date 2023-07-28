@@ -1,0 +1,11 @@
+Flask==2.0.1
+openai==0.27.0
+pdfplumber==0.5.28
+nltk
+wordcloud
+flask-socketio
+python-docx
+azure-storage-file-share
+requests
+azure-storage-blob
+azure-identity
