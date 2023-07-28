@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Resume Verifier</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="#resumeComparison">Resume Comparison</a></li>
+                <li><a id="wordCloudLink" href="#wordClouds">Word Clouds</a></li>
+                <li><a href="#uploadedFiles">Uploaded Files</a></li>
+                <li class="logo"><img src="https://resumeverifierstorage.blob.core.windows.net/images/LCG_LOGO_Color Logo.png" alt="Website Logo"></li>
+            </ul>
+        </nav>
+        <div id="resumeComparison">
+            <h1>Does the candidate match the job?</h1>
+            <form method="POST" enctype="multipart/form-data" action="/upload">
+                <div class="form-group">
+                    <label for="resume" class="custom-file-upload">Upload resume (PDF or Word doc)</label>
+                    <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx">
+                    <div class="message" id="resumeMessage"></div>
+                </div>
+                <div class="form-group">
+                    <label for="job_desc" class="custom-file-upload">Upload job description (PDF or Word doc)</label>
+                    <input type="file" id="job_desc" name="job_desc" accept=".pdf,.doc,.docx">
+                    <div class="message" id="jobDescMessage"></div>
+                </div>
+                <div class="form-group">
+                    <label for="prompt">Prompt:</label>
+                    <textarea id="prompt" name="prompt">Compare the resume thoroughly against all the requirements in the job description and tell me whether or not resume meets every single criteria. List out the criteria that it meets AND doesn't meet. Be detailed.</textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Submit">
+                </div>
+            </form>                    
+            <div id="result">
+            </div>
+            <div class="button-container">
+                <a id="downloadButton" href="#" download="results.txt">Download Results</a>
+            </div>
+        </div>
+        <div id="wordClouds" style="display: none;">
+            <h1>Word Clouds</h1>
+            <div id="resumeWordCloud">
+                <h2>Resume Wordcloud</h2>
+            </div>
+            <div id="jobdescWordCloud">
+                <h2>Job Description Wordcloud</h2>
+            </div>            
+        </div>
+        <div id="uploadedFiles" style="display: none;">
+            <h1>Uploaded Files</h1>
+            <div>
+              <h2>Resume</h2>
+              <iframe id="resumeIframe" src="" width="60%" height="500px"></iframe>
+            <div>
+              <h2>Job Description</h2>
+              <iframe id="jobDescIframe" src="" width="60%" height="500px"></iframe>
+            </div>
+        </div>              
+        <script 
+        src="/static/js/script.js">
+        </script>
+    </body>
+</html>
