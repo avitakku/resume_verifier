@@ -1,0 +1,272 @@
+
+/* style.css */
+
+:root {
+    --primary-color: #C2D500; 
+    --secondary-color: #76777A; 
+    --background-color: #18548F; 
+    --alt-background-color: #6AAAE4; 
+    --powder-blue: #bfe7f7;
+    --slate-grey: #A7BBCE;
+    --font-primary: 'Noto Sans Black', sans-serif;
+    --font-secondary: 'Open Sans', sans-serif;
+}
+
+body {
+    font-family: var(--font-primary);
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--background-color);
+}
+
+h1 {
+    font-family: var(--font-secondary);
+    text-align: center;
+    padding: 20px 0;
+    color: var(--powder-blue);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+    color: var(--powder-blue);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+form {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: var(--alt-background-color);
+    border-radius: 5px;
+    box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+}
+
+form:hover {
+    transform: scale(1.01);
+}
+
+form label {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input[type="file"] {
+    display: none;  /* Hide the original input */
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px;
+    background-color: var(--slate-grey);
+    color: var(--background-color);
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, transform 0.3s ease;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.custom-file-upload:hover {
+    color: var(--primary-color);
+    background-color: #2075BC; /* Lighter Pastel Red */
+    transform: translateY(-2px); /* Moves the button up */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* Bigger shadow for "lifted" effect */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+form input[type="submit"] {
+    margin-top: 10px; 
+    font-family: var(--font-primary);
+    width: 30%;
+    padding: 10px;
+    background-color: var(--secondary-color);
+    color: var(--powder-blue);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.3s ease;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+form input[type="submit"]:hover {
+    color: var(--background-color);
+    background-color: var(--primary-color); /* Lighter Pastel Red */
+    transform: translateY(-2px); /* Moves the button up */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* Bigger shadow for "lifted" effect */
+}
+
+#result {
+    font-family: var(--font-primary);
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: var(--slate-grey);
+    border-radius: 5px;
+    box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.4);
+    white-space: pre-wrap;
+    line-height: 1.6;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #2075BC;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li {
+    float: left;
+}
+
+nav ul li:last-child {
+    margin-right: 10px;
+}
+
+nav ul li a {
+    display: block;
+    color: var(--primary-color);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    font-family: var(--font-primary);
+}
+
+nav ul li a:hover {
+    color: var(--powder-blue);
+    background-color: var(--secondary-color);
+}
+
+nav ul li.logo img {
+    height: 30px; 
+}
+
+nav ul li.logo {
+    margin-left: auto;
+    padding-top: 5px; 
+}
+
+#wordClouds {
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    color: var(--primary-color); 
+}
+
+#wordClouds h2 {
+    text-align: center;
+    font-family: var(--font-secondary);
+}
+
+.loading .loading-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading .spinner {
+    border: 4px solid #233d4d;
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    animation: spin 1s linear infinite; /* Added animation properties */
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loading p {
+    margin-right: 10px;
+}
+
+/* Added keyframe animation for spinning */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#downloadButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+#downloadButton{
+    margin-top: 10px; 
+    font-family: var(--font-primary);
+    width: 20%;
+    padding: 10px;
+    background-color: var(--secondary-color);
+    color: var(--powder-blue);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.3s ease;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#downloadButton:hover, #logoutButton:hover {
+    color: var(--background-color);
+    background-color: var(--primary-color); /* Lighter Pastel Red */
+    transform: translateY(-2px); /* Moves the button up */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* Bigger shadow for "lifted" effect */
+}
+
+.message {
+    margin-top: 3px;
+    margin-bottom: 15px;
+    color: var(--secondary-color);
+    font-weight: bold;
+  }
+  
+  #uploadedFiles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+  }
+  
+  #uploadedFiles div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  #uploadedFiles iframe {
+    width: 70%;
+    height: 800px;
+  }
+  
+  #uploadedFiles h1,
+  #uploadedFiles h2 {
+    margin-bottom: 10px;
+  }
+  
+  textarea#prompt {
+    width: 100%; /* Sets the width */
+    height: 80px; /* Sets the height */
+    margin-bottom: 20px; /* Adds space below the text area */
+}
