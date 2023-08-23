@@ -31,7 +31,7 @@ app.secret_key = config.secret_key
 openai.api_key = config.api_key
 
 def save_file_to_azure(file, file_name):
-    sas_url = "https://resumeverifierstorage.blob.core.windows.net/files?sp=racwdli&st=2023-06-23T19:33:11Z&se=2025-07-24T03:33:11Z&sv=2022-11-02&sr=c&sig=ReLjjFuQE174X8C3ba0%2F4yk6gXfLw0%2F1tnjQ9z18S7Q%3D"
+    sas_url = INSERT_SAS_URL_HERE
     container_client = ContainerClient.from_container_url(sas_url)
     blob_client = container_client.get_blob_client(file_name)
 
@@ -67,7 +67,7 @@ def delete_files():
     global resume_filename
     global job_desc_filename
 
-    sas_url = "https://resumeverifierstorage.blob.core.windows.net/files?sp=racwdli&st=2023-06-23T19:33:11Z&se=2025-07-24T03:33:11Z&sv=2022-11-02&sr=c&sig=ReLjjFuQE174X8C3ba0%2F4yk6gXfLw0%2F1tnjQ9z18S7Q%3D"
+    sas_url = INSERT_SAS_URL_HERE
     container = ContainerClient.from_container_url(sas_url)
     blobs_list = container.list_blobs()
     #print(resume_filename)
