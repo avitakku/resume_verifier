@@ -7,7 +7,7 @@ Follow these steps to get Resume Verifier up and running on your local machine.
 ###  Install Python
 If you don't have Python installed, you can download it from the [official website](https://www.python.org/downloads/).
 
-## Getting and Setting Variables
+## Getting API and App Keys
 
 ### OpenAI API Key
 Get OpenAI API key from the [OpenAI website](https://openai.com/blog/openai-api).
