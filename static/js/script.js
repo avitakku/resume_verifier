@@ -1,16 +1,9 @@
+// Add a 'submit' event listener to a form that sends an asynchronous POST request
 document.querySelector('form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const resultElement = document.getElementById('result');
-    fetch('/delete-files', { method: 'POST'});
-    fetch('/remove-images', { method: 'POST'})
-        .then(response => {
-            if (response.ok) {
-                // Remove the previous word cloud images
-                document.querySelector('#resumeWordCloud').innerHTML = '';
-                document.querySelector('#jobdescWordCloud').innerHTML = '';
-            }
-        });
+    e.preventDefault(); // Prevent the form from submitting and reloading the page
+    const formData = new FormData(e.target); // Create FormData object from the submitted form
+    const resultElement = document.getElementById('result'); // Get the result element to display messages
+    fetch('/delete-files', { method: 'POST'}); // Send a POST request to delete existing files on the server
     
     // Check if files have been uploaded
     const fileInputs = document.querySelectorAll('input[type="file"]');
@@ -21,147 +14,47 @@ document.querySelector('form').addEventListener('submit', async (e) => {
         return;
     }
     
-    resultElement.classList.add('loading'); 
+    resultElement.classList.add('loading'); // Add loading class to show loading animation
     resultElement.innerHTML = `
         <div class="loading-content">
             <p>Comparing resume against job description...</p>
             <div class="spinner"></div>
         </div>
-    `;
+    `; // Display loading content
     
+    // Send a POST request to the form's action URL with the form data
     const response = await fetch(e.target.action, {
         method: 'POST',
         body: formData,
     });
     
+    // Convert response to JSON and update the result element
     const result = await response.json();
     resultElement.classList.remove('loading'); 
-    resultElement.innerHTML = result;
-
-    // Enable the "Generate Wordclouds" button
-    wordcloudButton.disabled = false;
-
-    document.getElementById('wordcloudButton').addEventListener('click', function() {
-        // Fetch the resume wordcloud image
-        fetch('/api/get_resume_wordcloud')
-            .then(response => {
-                if (response.ok) {
-                    response.blob().then(blob => {
-                        let container = document.querySelector('#resumeWordCloud');
-                        // Remove any existing images
-                        while (container.firstChild) {
-                            container.firstChild.remove();
-                        }
-                        // Create a new title
-                        let title = document.createElement('h2');
-                        title.textContent = "Resume Wordcloud";
-                        container.appendChild(title);
-                        // Create a new image
-                        let img = document.createElement('img');
-                        img.src = URL.createObjectURL(blob);
-                        img.alt = "Resume Wordcloud";
-                        container.appendChild(img);
-
-                        console.log(response)
-                    });
-                }
-            });
-    
-        // Fetch the job description wordcloud image
-        fetch('/api/get_jobdesc_wordcloud')
-            .then(response => {
-                if (response.ok) {
-                    response.blob().then(blob => {
-                        let container = document.querySelector('#jobdescWordCloud');
-                        // Remove any existing images
-                        while (container.firstChild) {
-                            container.firstChild.remove();
-                        }
-                        // Create a new title
-                        let title = document.createElement('h2');
-                        title.textContent = "Job Description Wordcloud";
-                        container.appendChild(title);
-                        // Create a new image
-                        let img = document.createElement('img');
-                        img.src = URL.createObjectURL(blob);
-                        img.alt = "Job Description Wordcloud";
-                        container.appendChild(img);
-                        console.log(response)
-                    });
-                }
-            });
-    });    
+    resultElement.innerHTML = result;   
 });
 
+// Add click event listeners to navigation tabs
 document.querySelectorAll('nav ul li a').forEach((tab) => {
     tab.addEventListener('click', (event) => {
-        event.preventDefault();
+        event.preventDefault(); // Prevent default navigation
         document.querySelectorAll('nav ul li a').forEach((tab) => {
-            tab.classList.remove('active');
+            tab.classList.remove('active'); // Remove active class from all tabs
         });
-        event.target.classList.add('active');
-        document.querySelectorAll('div#resumeComparison, div#wordClouds, div#uploadedFiles').forEach((content) => {
-            content.style.display = 'none';
+        event.target.classList.add('active'); // Add active class to clicked tab
+        document.querySelectorAll('div#resumeComparison, div#uploadedFiles').forEach((content) => {
+            content.style.display = 'none'; // Hide all content containers
         });
-        document.querySelector(`div${event.target.getAttribute('href')}`).style.display = 'block';
-
-        if (event.target.id === 'wordCloudLink') {
-                // Fetch the resume wordcloud image
-            fetch('/api/get_resume_wordcloud')
-            .then(response => {
-                if (response.ok) {
-                    response.blob().then(blob => {
-                        let container = document.querySelector('#resumeWordCloud');
-                        // Remove any existing images
-                        while (container.firstChild) {
-                            container.firstChild.remove();
-                        }
-                        // Create a new title
-                        let title = document.createElement('h2');
-                        title.textContent = "Resume Wordcloud";
-                        container.appendChild(title);
-                        // Create a new image
-                        let img = document.createElement('img');
-                        img.src = URL.createObjectURL(blob);
-                        img.alt = "Resume Wordcloud";
-                        container.appendChild(img);
-                        console.log(response)
-                    });
-                }
-            });
-
-            // Fetch the job description wordcloud image
-            fetch('/api/get_jobdesc_wordcloud')
-                .then(response => {
-                    if (response.ok) {
-                        response.blob().then(blob => {
-                            let container = document.querySelector('#jobdescWordCloud');
-                            // Remove any existing images
-                            while (container.firstChild) {
-                                container.firstChild.remove();
-                            }
-                            // Create a new title
-                            let title = document.createElement('h2');
-                            title.textContent = "Job Description Wordcloud";
-                            container.appendChild(title);
-                            // Create a new image
-                            let img = document.createElement('img');
-                            img.src = URL.createObjectURL(blob);
-                            img.alt = "Job Description Wordcloud";
-                            container.appendChild(img);
-                            console.log(response)
-                        });
-                    }
-                });
-        }
+        document.querySelector(`div${event.target.getAttribute('href')}`).style.display = 'block'; // Show clicked tab's content
     });
 });
 
+// Add a 'beforeunload' event listener to send a POST request to delete files when the page is unloaded
 window.addEventListener('beforeunload', (event) => {
-    navigator.sendBeacon("/remove-images");
     fetch('/delete-files', { method: 'POST'});
 });
 
+// Add a click event listener to create a download link for the result text
 document.getElementById('downloadButton').addEventListener('click', function() {
     const resultElement = document.getElementById('result');
     const resultText = resultElement.textContent;
@@ -171,6 +64,7 @@ document.getElementById('downloadButton').addEventListener('click', function() {
     downloadLink.href = url;
 });
 
+// Add event listeners to file inputs to show a success message when files are uploaded
 document.addEventListener('DOMContentLoaded', () => {
     const fileInputs = document.querySelectorAll('input[type="file"]');
     fileInputs.forEach(input => {
@@ -184,28 +78,14 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   });
-  
-/*// Check if the "Upload Files" tab is clicked
-const uploadedFilesTab = document.querySelector('#uploadedFiles');
-uploadedFilesTab.addEventListener('click', () => {
-  // Render a new HTML file with the uploaded files
-  fetch('/render-uploaded-files')
-      .then(response => response.text())
-      .then(html => {
-          const uploadedFilesContainer = document.getElementById('uploadedFiles');
-          uploadedFilesContainer.innerHTML = html;
-      })
-      .catch(error => {
-          console.error('Error rendering uploaded files:', error);
-      });
-});*/
 
+// Render uploaded files when the corresponding tab is clicked
 document.addEventListener('DOMContentLoaded', () => {
     const uploadedFilesTab = document.querySelector('li a[href="#uploadedFiles"]');
     uploadedFilesTab.addEventListener('click', (event) => {
       event.preventDefault();
   
-      // Render a new HTML file with the uploaded files
+      // Fetch HTML content and render it in the uploadedFiles container
       fetch('/render-uploaded-files')
         .then(response => response.text())
         .then(html => {
@@ -217,3 +97,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
   });
+
