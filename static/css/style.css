@@ -159,19 +159,6 @@ nav ul li.logo {
     padding-top: 5px; 
 }
 
-#wordClouds {
-    background-color: var(--background-color);
-    display: flex;
-    justify-content: center;
-    padding: 20px 0;
-    color: var(--primary-color); 
-}
-
-#wordClouds h2 {
-    text-align: center;
-    font-family: var(--font-secondary);
-}
-
 .loading .loading-content {
     display: flex;
     align-items: center;
@@ -224,7 +211,7 @@ nav ul li.logo {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-#downloadButton:hover, #logoutButton:hover {
+#downloadButton:hover {
     color: var(--background-color);
     background-color: var(--primary-color); /* Lighter Pastel Red */
     transform: translateY(-2px); /* Moves the button up */
