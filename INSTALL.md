@@ -4,7 +4,7 @@ Follow these steps to get Resume Verifier up and running on your local machine.
 
 ## Set up
 
-### Step 1: Install Python
+###  Install Python
 If you don't have Python installed, you can download it from the [official website](https://www.python.org/downloads/).
 
 ## Getting and Setting Variables
